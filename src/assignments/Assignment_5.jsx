@@ -44,23 +44,23 @@ export default function Assignment_5() {
 
   //Move Up
   const moveUp = (index) => {
-    if (index === 0) return;
-    const newNumbers = [...numbers];
-    [newNumbers[index - 1], newNumbers[index]] = [
-      newNumbers[index],
-      newNumbers[index - 1],
-    ];
-    setNumbers(newNumbers);
-  };
+  if (index === 0) return; 
+  const newNumbers = [...numbers]; 
+  [newNumbers[index - 1], newNumbers[index]] = [
+    newNumbers[index],
+    newNumbers[index - 1],
+  ];
+  setNumbers(newNumbers);
+};
 
   //Move Down
   const moveDown = (index) => {
     if (index === numbers.length - 1) return;
-    const newNumbers = [...numbers];
-    [newNumbers[index], newNumbers[index + 1]] = [
+    const newNumbers = [...numbers]
+    [newNumbers[index], newNumbers[index + 1 ]] = [
       newNumbers[index + 1],
       newNumbers[index],
-    ];
+    ]
     setNumbers(newNumbers);
   };
 
@@ -122,7 +122,11 @@ export default function Assignment_5() {
               Move Down
             </Button>
 
-            <IconButton edge="end" color="error" onClick={() => Delete(index)}>
+            <IconButton 
+              edge="end" 
+              color="error" 
+              onClick={() => Delete(index)}
+            >
               <DeleteIcon />
             </IconButton>
           </ListItem>
