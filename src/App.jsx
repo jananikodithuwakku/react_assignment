@@ -1,24 +1,18 @@
-import { HashRouter, Route, Routes, Link } from "react-router-dom"
-import "./App.css"
-
-import Assignment from "./assignments/Assignment_1"
+import "./App.css";
 
 function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <Route
-          path="/" element={<><h2>Navigation Menu</h2>
-              <ul>
-                <li><Link to="/assignment_1">Assignment 01</Link></li>
-                
-              </ul>
-            </>}/>
-        <Route path="/assignment_1" element={<Assignment />} />
-        
-      </Routes>
-    </HashRouter>
-  )
+    <>
+      <h2>Navigation Menu</h2>
+      <ul>
+        <li><a href="#/assignment_1">Assignment 01</a></li>
+        <li><a href="#/assignment_2">Assignment 02</a></li>
+        <li><a href="#/assignment_3">Assignment 03</a></li>
+        <li><a href="#/assignment_4">Assignment 04</a></li>
+        <li><a href="#/assignment_5">Assignment 05</a></li>
+      </ul>
+    </>
+  );
 }
 
-export default App
+export default App;
