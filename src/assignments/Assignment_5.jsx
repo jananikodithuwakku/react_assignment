@@ -56,11 +56,11 @@ export default function Assignment_5() {
   //Move Down
   const moveDown = (index) => {
     if (index === numbers.length - 1) return;
-    const newNumbers = [...numbers]
+    const newNumbers = [...numbers];
     [newNumbers[index], newNumbers[index + 1 ]] = [
       newNumbers[index + 1],
       newNumbers[index],
-    ]
+    ];
     setNumbers(newNumbers);
   };
 
@@ -77,9 +77,15 @@ export default function Assignment_5() {
         >
           Sort Ascending
         </Button>
-        <Button variant="contained" color="secondary" onClick={sortDesc}>
+
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={sortDesc}
+        >
           Sort Descending
         </Button>
+
       </Box>
 
       <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
@@ -88,6 +94,7 @@ export default function Assignment_5() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
+
         <Button variant="contained" onClick={add}>
           Add
         </Button>
