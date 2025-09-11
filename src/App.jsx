@@ -13,6 +13,7 @@ function App() {
         <li><a href="#/assignment_6">Assignment 06</a></li>
         <li><a href="#/assignment_7">Assignment 07</a></li>
         <li><a href="#/assignment_8">Assignment 08</a></li>
+        <li><a href="#/assignment_9">Assignment 09</a></li>
       </ul>
     </>
   );
