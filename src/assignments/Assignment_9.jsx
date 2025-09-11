@@ -29,6 +29,12 @@ export default function Assignment_9() {
       });
   }, []);
 
+  useEffect(() => {
+    if (searchMode) {
+      fetchColor();
+    }
+  }, [page]);
+
   const fetchColor = () => {
     axios
       .get(
@@ -105,16 +111,12 @@ export default function Assignment_9() {
             marginTop: "20px",
           }}
         >
-
           {Array.from({ length: totalPages }, (_, i) => (
             <Button
-              sx={{color:"black"}}
+              sx={{ color: "black" }}
               key={i} // gives a unique React key for each button
               variant={page === i + 1 ? "contained" : "outlined"}
-              onClick={() => {
-                setPage(i + 1);
-                fetchColor();
-              }}
+              onClick={() => setPage(i + 1)}
             >
               {i + 1} {/*displays page numbers starting at 1, not 0.*/}
             </Button>
