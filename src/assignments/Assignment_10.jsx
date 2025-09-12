@@ -7,6 +7,7 @@ export default function Assignment_10() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [response, setResponse] = useState(null);
+  const [showForm, setShowForm] = useState(true);
 
   const login = () => {
     setError("");
@@ -26,6 +27,12 @@ export default function Assignment_10() {
       .catch((err) => {
         console.error("Login Error:", err.response?.data || err.massage);
         setError(err.response?.data?.massage || "Login Failed. Try again.");
+      })
+
+      .finally(() => {
+        if (!error) {
+          setShowForm(false);
+        }
       });
   };
 
@@ -35,27 +42,31 @@ export default function Assignment_10() {
         Login with JWT
       </Typography>
 
-      <TextField
-        fullWidth
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        sx={{ md: 2 }}
-      />
+      {showForm && (
+        <>
+          <TextField
+            fullWidth
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{ md: 2 }}
+          />
 
-      <TextField
-        fullWidth
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        sx={{ md: 2 }}
-      />
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ md: 2 }}
+          />
 
-      <Button variant="contained" color="primary" onClick={login}>
-        Login
-      </Button>
+          <Button variant="contained" color="primary" onClick={login}>
+            Login
+          </Button>
+        </>
+      )}
 
       {error && (
         <Typography color="error" sx={{ mt: 2 }}>
@@ -68,8 +79,10 @@ export default function Assignment_10() {
           <Typography variant="body" sx={{ fontWeight: "bold" }}>
             Login Success
           </Typography>
-          <pre style={{ background: "#eeebebff", padding: "10px" }}>{/* Show API response in a formatted way */}
-            {JSON.stringify(response, null, 2)}  {/* Convert response object to readable JSON with 2-space indentation */}
+          <pre style={{ background: "#eeebebff", padding: "10px" }}>
+            {/* Show API response in a formatted way */}
+            {JSON.stringify(response, null, 2)}{" "}
+            {/* Convert response object to readable JSON with 2-space indentation */}
           </pre>
         </Box>
       )}
