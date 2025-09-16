@@ -8,8 +8,11 @@ export default function Assignment_10() {
   const [error, setError] = useState("");
   const [response, setResponse] = useState(null);
   const [showForm, setShowForm] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = () => {
+    if(isLoading)return;
+    setIsLoading(true);
     setError("");
     setResponse(null);
 
@@ -22,6 +25,7 @@ export default function Assignment_10() {
       .then((res) => {
         console.log("API Response:", res.data); // log response
         setResponse(res.data);
+        setShowForm(false);
       })
 
       .catch((err) => {
@@ -30,9 +34,7 @@ export default function Assignment_10() {
       })
 
       .finally(() => {
-        if (!error) {
-          setShowForm(false);
-        }
+        setIsLoading(false);
       });
   };
 
@@ -62,8 +64,13 @@ export default function Assignment_10() {
             sx={{ md: 2 }}
           />
 
-          <Button variant="contained" color="primary" onClick={login}>
-            Login
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={login} 
+            disabled={isLoading}
+            >
+            {isLoading ? "Logging in...":"Login"}
           </Button>
         </>
       )}

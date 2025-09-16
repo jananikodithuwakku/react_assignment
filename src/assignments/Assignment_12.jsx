@@ -1,14 +1,22 @@
-import { Box, TextField, Typography, Button } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Typography,
+  Button,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Assignment_11() {
+export default function Assignment_12() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(true);
   const [userDetails, setUserDetails] = useState(null);
   const [token, setToken] = useState(""); //access token
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false); //checkbox state
   const [isLoading, setIsLoading] = useState(false);
 
   const login = () => {
@@ -25,7 +33,16 @@ export default function Assignment_11() {
 
       .then((res) => {
         console.log("Login Response:", res.data);
-        setToken(res.data.access_token); // store access token
+        const accessToken = res.data.access_token;
+
+        //save token in localstorage or sessionStorage
+        if (keepLoggedIn) {
+          localStorage.setItem("access_token", accessToken);
+        } else {
+          sessionStorage.setItem("access_token", accessToken);
+        }
+
+        setToken(accessToken);
         setShowForm(false);
       })
 
@@ -35,7 +52,7 @@ export default function Assignment_11() {
       })
 
       .finally(() => {
-        setIsLoading(fale);
+        setIsLoading(false);
       });
   };
 
@@ -66,6 +83,17 @@ export default function Assignment_11() {
   };
 
   useEffect(() => {
+    const savedToken =
+      localStorage.getItem("access_token") ||
+      sessionStorage.getItem("access_token");
+
+    if (savedToken) {
+      setToken(savedToken);
+      setShowForm(false);
+    }
+  }, []);
+
+  useEffect(() => {
     if (token) {
       fetchUserDetails();
     }
@@ -74,7 +102,7 @@ export default function Assignment_11() {
   return (
     <Box sx={{ p: 3, maxWidth: "400px", margin: "0 auto" }}>
       <Typography variant="h5" sx={{ md: 2, fontWeight: "bold" }}>
-        Login and View User Details
+        Login with Persistent Storage
       </Typography>
 
       {showForm && (
@@ -95,6 +123,16 @@ export default function Assignment_11() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             sx={{ md: 2 }}
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={keepLoggedIn}
+                onChange={(e) => setKeepLoggedIn(e.target.checked)}
+              />
+            }
+            label="Keep me Logged in"
           />
 
           <Button 
