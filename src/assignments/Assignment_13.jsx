@@ -9,6 +9,10 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const getToken = () =>
+  localStorage.getItem("access_token") ||
+  sessionStorage.getItem("access_token");
+
 function LoginScreen({ setIsLoggedIn, setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +42,6 @@ function LoginScreen({ setIsLoggedIn, setToken }) {
           sessionStorage.setItem("access_token", accessToken);
         }
 
-        setToken(accessToken);
         setIsLoggedIn(true);
       })
 
@@ -104,7 +107,7 @@ function LoginScreen({ setIsLoggedIn, setToken }) {
   );
 }
 
-function ProfileScreen({ token, setIsLoggedIn, setToken }) {
+function ProfileScreen({ setIsLoggedIn }) {
   const [error, setError] = useState("");
   const [userDetails, setUserDetails] = useState(null);
 
@@ -112,7 +115,7 @@ function ProfileScreen({ token, setIsLoggedIn, setToken }) {
     axios
       .get("https://auth.dnjs.lk/api/user", {
         headers: {
-          Authorization: `Bearer ${token}`, // attach token in header
+          Authorization: `Bearer ${getToken()}`, // attach token in header
         },
       })
 
@@ -136,25 +139,24 @@ function ProfileScreen({ token, setIsLoggedIn, setToken }) {
       .post(
         "https://auth.dnjs.lk/api/logout",
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${getToken()}` } }
       )
 
       .finally(() => {
         localStorage.removeItem("access_token");
         sessionStorage.removeItem("access_token");
-        setToken("");
         setIsLoggedIn(false);
       });
   };
 
   useEffect(() => {
-    if (token) {
+    if (getToken()) {
       fetchUserDetails();
     }
-  }, [token]);
+  }, []);
 
   return (
-    <Box sx={{ p:3, maxWidth:"400px", margin:"0 auto" }}>
+    <Box sx={{ p: 3, maxWidth: "400px", margin: "0 auto" }}>
       {error && (
         <Typography color="error" sx={{ mt: 2 }}>
           {error}
@@ -197,18 +199,11 @@ function ProfileScreen({ token, setIsLoggedIn, setToken }) {
 }
 export default function Assignment_13() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(""); //access token
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const savedToken =
-      localStorage.getItem("access_token") ||
-      sessionStorage.getItem("access_token");
-
-    if (savedToken) {
-      setToken(savedToken);
+    if (getToken()) 
       setIsLoggedIn(true);
-    }
     setIsReady(true);
   }, []);
 
@@ -217,16 +212,9 @@ export default function Assignment_13() {
   return (
     <>
       {isLoggedIn ? (
-        <ProfileScreen
-          token={token}
-          setIsLoggedIn={setIsLoggedIn}
-          setToken={setToken}
-        />
+        <ProfileScreen setIsLoggedIn={setIsLoggedIn} />
       ) : (
-        <LoginScreen 
-          setIsLoggedIn={setIsLoggedIn} 
-          setToken={setToken} 
-        />
+        <LoginScreen setIsLoggedIn={setIsLoggedIn} />
       )}
     </>
   );
