@@ -74,12 +74,19 @@ export default function Assignment_12() {
       })
 
       .catch((err) => {
-        console.error(
-          "Error fetching user details: ",
-          err.response?.data || err.massage
-        );
+      console.error("Error fetching user details:", err.response?.data || err.message);
+
+      // If token is invalid, clear storage & go back to login
+      if (err.response?.status === 401) {
+        localStorage.removeItem("access_token");
+        sessionStorage.removeItem("access_token");
+        setToken("");
+        setShowForm(true);
+        setError("Session expired. Please log in again.");
+      } else {
         setError("Failed to fetch user details.");
-      });
+      }
+    });
   };
 
   useEffect(() => {
