@@ -159,6 +159,30 @@ function ProfileScreen({ setIsLoggedIn }) {
       });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      setError("File size must be less that 2MB");
+      setSelectedFile(null);
+      return;
+    }
+
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      if (img.width < 200 || img.height < 200) {
+        setError("Image must be at least 200x200 pixels");
+        setSelectedFile(null);
+      } else {
+        setError("");
+        setSelectedFile(file);
+      }
+    };
+  };
+
   const uploadAvatar = () => {
     if (!selectedFile) {
       alert("Please select an image first");
@@ -177,6 +201,7 @@ function ProfileScreen({ setIsLoggedIn }) {
       })
       .then(() => {
         alert("Avatar uploaded successfully");
+        setError("");
         fetchUserDetails();
       })
       .catch((err) => {
@@ -242,14 +267,21 @@ function ProfileScreen({ setIsLoggedIn }) {
                   }}
                 />
               )}
-
+              
               {/*Avatar upload section */}
               <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setSelectedFile(e.target.files[0])}
+                  onChange={handleFileChange}
                 />
+
+                {error && (
+                  <Typography color="error" variant="body2">
+                    {error}
+                  </Typography>
+                )}
+
                 <Button
                   variant="contained"
                   color="primary"
