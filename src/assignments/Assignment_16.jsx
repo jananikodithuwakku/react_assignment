@@ -47,7 +47,8 @@ function LoginScreen({ setIsLoggedIn }) {
 
       .catch((err) => {
         console.error("Login Error:", err.response?.data || err.massage);
-        setError(err.response?.data?.massage || "Login Failed. Try again.");
+        const apiMessage = err.response?.data?.error?.message || "Login Failed. Try again.";
+        setError(apiMessage);
       })
 
       .finally(() => {
@@ -130,11 +131,9 @@ function ProfileScreen({ setIsLoggedIn, setShowChangePassword }) {
       })
 
       .catch((err) => {
-        console.error(
-          "Error fetching user details: ",
-          err.response?.data || err.message
-        );
-        setError("Failed to fetch user details.");
+        console.error("Fetch user failed:", err.response?.data || err.message);
+        const apiMessage = err.response?.data?.error?.message || "Failed to fetch user details.";
+        setError(apiMessage);
       });
   };
 
@@ -155,7 +154,8 @@ function ProfileScreen({ setIsLoggedIn, setShowChangePassword }) {
           "Error updating profile",
           err.response?.data || err.massage
         );
-        setError("Failed to update profile.");
+        const apiMessage = err.response?.data?.error?.message || "Failed to update profile.";
+        setError(apiMessage);
       });
   };
 
@@ -209,7 +209,8 @@ function ProfileScreen({ setIsLoggedIn, setShowChangePassword }) {
           "Error uploading avatar",
           err.response?.data || err.message
         );
-        setError("Failed to upload avatar");
+        const apiMessage = err.response?.data?.error?.message || "Failed to upload avatar";
+        setError(apiMessage);
       });
   };
 
@@ -415,7 +416,8 @@ function ChangePasswordScreen({setShowChangePassword}) {
           "Change password failed",
           err.response?.data || err.massage
         );
-        setError("Failed to change password");
+        const apiMessage = err.response?.data?.error?.message || "Failed to change password";
+        setError(apiMessage);
       });
   };
 
