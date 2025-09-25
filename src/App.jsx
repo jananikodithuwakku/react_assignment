@@ -22,6 +22,8 @@ function App() {
         <li><a href="#/assignment_15">Assignment 15</a></li>
         <li><a href="#/assignment_16">Assignment 16</a></li>
         <li><a href="#/assignment_17">Assignment 17</a></li>
+        <li><a href="#/assignment_18">Assignment 18</a></li>
+        <li><a href="#/assignment_19">Assignment 19</a></li>
       </ul>
     </>
   );
