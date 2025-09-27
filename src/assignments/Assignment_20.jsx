@@ -10,11 +10,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Assignment_20() {
-  const [questions, setQuestions] = useState([]); // stores API data
-  const [currentIndex, setCurrentIndex] = useState(0); // tracks the current question
-  const [score, setScore] = useState(0); // tracks the user’s score
-  const [isFinished, setIsFinished] = useState(false); // determines when the quiz ends
-  const [userAnswers, setUserAnswers] = useState([]); // stores selected answers
+  const [questions, setQuestions] = useState([]); //stores API data
+  const [currentIndex, setCurrentIndex] = useState(0); //tracks the current question
+  const [score, setScore] = useState(0); //tracks the user’s score
+  const [isFinished, setIsFinished] = useState(false); //determines when the quiz ends
+  const [userAnswers, setUserAnswers] = useState([]); // strores selected answers
   const [reviewIndex, setReviewIndex] = useState(0); // tracks current review question
 
   useEffect(() => {
@@ -24,24 +24,23 @@ export default function Assignment_20() {
       .catch((err) => console.error("Error fetching quiz:", err));
   }, []);
 
-  // handle answer selection
+  // handle anwer selection
   const handleAnswerClick = (answerIndex) => {
     const currentQuestion = questions[currentIndex];
 
-    // record user answer
-    setUserAnswers((prev) => [...prev, answerIndex]);
+    setUserAnswers((prev) => [...prev, answerIndex]); // record user answer
 
-    // check if the answer is correct
+    //chack if the answer is correct
     if (answerIndex === currentQuestion.correct) {
       setScore((prev) => prev + 1);
     }
 
-    // move to next question or finish
+    // move to next question
     if (currentIndex + 1 < questions.length) {
       setCurrentIndex((prev) => prev + 1);
     } else {
       setIsFinished(true);
-      setReviewIndex(0); // reset for review
+      setReviewIndex(0); //reset for review
     }
   };
 
@@ -62,11 +61,11 @@ export default function Assignment_20() {
         <Card>
           <CardContent>
             <Typography variant="h5">Quiz Finished</Typography>
-            <Typography variant="h6" sx={{ mb: 2 }}>
+
+            <Typography variant="h6">
               Your Score: {score} out of {questions.length}
             </Typography>
 
-            {/* Review Section */}
             <Typography variant="h6">
               Review Question {reviewIndex + 1} of {questions.length}
             </Typography>
@@ -79,7 +78,10 @@ export default function Assignment_20() {
                   color = "green"; // correct answer
                 }
 
-                if (index === userAnswer && userAnswer !== reviewQuestion.correct) {
+                if (
+                  index === userAnswer &&
+                  userAnswer !== reviewQuestion.correct
+                ) {
                   color = "red"; // wrong selected answer
                 }
 
@@ -93,12 +95,11 @@ export default function Assignment_20() {
                 );
               })}
             </Box>
-
             <Typography variant="h6" sx={{ mt: 2 }}>
               {reviewQuestion.question}
             </Typography>
 
-            <Box mt={2} display="flex" justifyContent="space-between">
+            <Box mt={2} display={"flex"} justifyContent={"space-between"}>
               <Button
                 variant="outlined"
                 disabled={reviewIndex === 0}
@@ -106,6 +107,7 @@ export default function Assignment_20() {
               >
                 Last
               </Button>
+
               <Button
                 variant="outlined"
                 disabled={reviewIndex === questions.length - 1}
@@ -120,7 +122,6 @@ export default function Assignment_20() {
     );
   }
 
-  // Quiz in progress
   const currentQuestion = questions[currentIndex];
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>
@@ -130,9 +131,7 @@ export default function Assignment_20() {
             Question {currentIndex + 1} of {questions.length}
           </Typography>
 
-          <Typography variant="h5" sx={{ mt: 2 }}>
-            {currentQuestion.question}
-          </Typography>
+          <Typography variant="h5">{currentQuestion.question}</Typography>
 
           <Box mt={2}>
             {currentQuestion.answers.map((answer, index) => (
