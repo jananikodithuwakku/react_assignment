@@ -6,18 +6,23 @@ export default function Assignment_22() {
   const fileInputRef = useRef(null); // reference for hidden file input
 
 
-  // filter states (default values)
+  // all filter states with defaults
   const [filters, setFilters] = useState({
     grayscale: 0,
     brightness: 100,
     contrast: 100,
     blur: 0,
+    hue: 0,
+    invert: 0,
+    opacity: 100,
+    saturate: 100,
+    sepia: 0,
   });
 
-  // open hidden file input when "Select Image" button is clicked
+    // open hidden file input when "Select Image" button is clicked
   const handleSelectImage = () => {
     fileInputRef.current.click();
-  };
+  }
 
   // when file is selected, create a blob URL and set it as image source
   const handleFileChange = (e) => {
@@ -31,18 +36,23 @@ export default function Assignment_22() {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  // reset filters back to default values
+   // reset filters back to default values
   const handleReset = () => {
     setFilters({
       grayscale: 0,
       brightness: 100,
       contrast: 100,
       blur: 0,
+      hue: 0,
+      invert: 0,
+      opacity: 100,
+      saturate: 100,
+      sepia: 0,
     });
   };
 
   // build css filter string from sate values
-  const filterStyle = `grayscale(${filters.grayscale}%) brightness(${filters.brightness}%) contrast(${filters.contrast}%) blur(${filters.blur}px)`;
+  const filterStyle = `grayscale(${filters.grayscale}%) brightness(${filters.brightness}%) contrast(${filters.contrast}%) blur(${filters.blur}px) hue-rotate(${filters.hue}deg) invert(${filters.invert}%) opacity(${filters.opacity}%) saturate(${filters.saturate}%) sepia(${filters.sepia}%)`;
 
   return (
     <Box sx={{ p: 3 }}>
@@ -62,7 +72,7 @@ export default function Assignment_22() {
       </Button>
 
       <Grid container spacing={3} mt={2}>
-        {/* Left side - Image */}
+        {/* Left - Image preview */}
         <Grid item xs={12} md={6}>
           <Box
             sx={{
@@ -82,7 +92,7 @@ export default function Assignment_22() {
                 alt="preview"
                 style={{
                   maxWidth: "100%",
-                  maxHeight: "400px",
+                  maxHeight: 400,
                   filter: filterStyle,
                 }}
               />
@@ -92,7 +102,7 @@ export default function Assignment_22() {
           </Box>
         </Grid>
 
-        {/* Right side - Sliders */}
+        {/* Right - Sliders */}
         <Grid item xs={12} md={6}>
           <Box>
             <Typography gutterBottom>
@@ -130,6 +140,46 @@ export default function Assignment_22() {
               min={0}
               max={20}
               step={0.5}
+            />
+
+            <Typography gutterBottom>Hue Rotate: {filters.hue}°</Typography>
+            <Slider
+              value={filters.hue}
+              onChange={handleChange("hue")}
+              min={0}
+              max={360}
+            />
+
+            <Typography gutterBottom>Invert: {filters.invert}%</Typography>
+            <Slider
+              value={filters.invert}
+              onChange={handleChange("invert")}
+              min={0}
+              max={100}
+            />
+
+            <Typography gutterBottom>Opacity: {filters.opacity}%</Typography>
+            <Slider
+              value={filters.opacity}
+              onChange={handleChange("opacity")}
+              min={0}
+              max={100}
+            />
+
+            <Typography gutterBottom>Saturate: {filters.saturate}%</Typography>
+            <Slider
+              value={filters.saturate}
+              onChange={handleChange("saturate")}
+              min={0}
+              max={300}
+            />
+
+            <Typography gutterBottom>Sepia: {filters.sepia}%</Typography>
+            <Slider
+              value={filters.sepia}
+              onChange={handleChange("sepia")}
+              min={0}
+              max={100}
             />
           </Box>
         </Grid>
