@@ -1,0 +1,28 @@
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  background: #222;
+  border-radius: 12px;
+  color: white;
+}
+
+.box {
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: grab;
+  background: #333;
+  transition: transform 0.2s;
+}
+
+.box:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+}
+
+.image {
+  width: 100%;
+  border-radius: 8px;
+}

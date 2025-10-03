@@ -29,6 +29,7 @@ function App() {
         <li><a href="#/assignment_21_i">Assignment 21 Another Version</a></li>
         <li><a href="#/assignment_22">Assignment 22</a></li>
         <li><a href="#/assignment_23">Custom Right Click Context Menu</a></li>
+        <li><a href="#/assignment_24">Drag and Drop Pictures</a></li>
       </ul>
     </>
   );
