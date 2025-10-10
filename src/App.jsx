@@ -31,6 +31,7 @@ function App() {
         <li><a href="#/assignment_23">Custom Right Click Context Menu</a></li>
         <li><a href="#/assignment_24">Drag and Drop Pictures</a></li>
         <li><a href="#/assignment_25">Canvas Image Crop ( Drag and draw)</a></li>
+        <li><a href="#/assignment_26">Image Clone</a></li>
       </ul>
     </>
   );
