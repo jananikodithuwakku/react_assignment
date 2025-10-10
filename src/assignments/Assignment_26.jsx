@@ -4,9 +4,9 @@ import { Box, Slider, Button, Typography } from "@mui/material";
 export default function Assignment_26() {
   const canvasRef = useRef(null); // reference for the canvas
   const imgRef = useRef(new Image()); // reference for the image
-  const [ctx, setCtx] = useState(null); // canvas drawing context 
-  const [cloneArea, setCloneArea] = useState(null);// stores selected area to clone
-  const [cloneSize, setCloneSize] = useState(60); // size of the clone brush
+  const [cloneArea, setCloneArea] = useState(null); // locked clone position
+  const [cloneSize, setCloneSize] = useState(60); // clone brush size
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 }); // cursor preview
 
   //load image from file input
   const loadImage = (e) => {
@@ -17,95 +17,137 @@ export default function Assignment_26() {
       imgRef.current.onload = () => {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
-        canvas.width = imgRef.current.width;
-        canvas.height = imgRef.current.height;
+        canvas.width = imgRef.current.width; // set canvas width
+        canvas.height = imgRef.current.height; // set canvas height
         context.drawImage(imgRef.current, 0, 0); // draw image on canvas
-        setCtx(context); // save context
       };
       imgRef.current.src = e.target.result; // set image source
     };
     reader.readAsDataURL(file);
   };
 
-  // handle click for selecting or cloning area 
-  const handleClick = (e) => {
-    if (!ctx) return;
+  // track mouse position for tool preview 
+  const handleMouseMove = (e) => {
+    if (!canvasRef.current) return;
     const rect = canvasRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left; // x position on canvas
-    const y = e.clientY - rect.top; // y position on canvas
+    setCursorPos({
+      x: e.clientX - rect.left - cloneSize / 2, // center tool
+      y: e.clientY - rect.top - cloneSize / 2,
+    });
+  };
 
-    if (!cloneArea) {
-        // first click - select clone area 
-      setCloneArea({ x, y });
-      drawAll(x, y);
+  // handle canvas clicks for selecting / pasting clone
+  const handleCanvasClick = (e) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    if (!cloneArea) { 
+      setCloneArea({ x, y }); // first click - lock clone area
     } else {
-        // second click - paste cloned area 
       const { x: sx, y: sy } = cloneArea;
-      const data = ctx.getImageData(
+      const imageData = ctx.getImageData(
         sx - cloneSize / 2,
         sy - cloneSize / 2,
         cloneSize,
         cloneSize
       );
-      ctx.putImageData(data, x - cloneSize / 2, y - cloneSize / 2);
+      ctx.putImageData(imageData, x - cloneSize / 2, y - cloneSize / 2); // paste clone
     }
-  };
-
-  // draw image and highlight selected area 
-  const drawAll = (x, y) => {
-    ctx.drawImage(imgRef.current, 0, 0);
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x - cloneSize / 2, y - cloneSize / 2, cloneSize, cloneSize);
   };
 
   // reset clone area and redraw image
   const reset = () => {
     setCloneArea(null);
-    if (ctx) ctx.drawImage(imgRef.current, 0, 0);
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.drawImage(imgRef.current, 0, 0);
   };
 
   return (
-    <Box sx={{ p: 4, textAlign: "center" }}>
+    <Box
+      sx={{
+        p: 4,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2,
+      }}
+    >
       <Typography variant="h6" sx={{ mb: 2 }}>
         Image Clone
       </Typography>
 
-      <Button variant="contained" component="label" sx={{ mb: 2 }}>
+      <Button variant="contained" component="label">
         Upload Image
         <input hidden type="file" accept="image/*" onChange={loadImage} />
       </Button>
 
-      <Box sx={{ width: 250, mx: "auto", mb: 2 }}>
+      <Box
+        sx={{ display: "flex", gap: 2, mb: 2, alignItems: "center" }}
+        className="options"
+      >
         <Typography>Clone Size</Typography>
         <Slider
+          min={40}
+          max={120}
           value={cloneSize}
-          onChange={(e, v) => {
-            setCloneSize(v);
-            if (cloneArea && ctx) drawAll(cloneArea.x, cloneArea.y);
-          }}
-          min={20}
-          max={150}
-          step={5}
-          valueLabelDisplay="auto"
+          onChange={(e, v) => setCloneSize(v)}
+          sx={{ width: 150 }}
+        />
+      </Box>
+
+      <Button onClick={reset} variant="outlined">
+        Reset Origin
+      </Button>
+
+      {/* Workspace */}
+      <Box
+        sx={{
+          position: "relative",
+          border: "1px solid #ccc",
+        }}
+        className="workspace"
+      >
+        <canvas
+          ref={canvasRef}
+          onClick={handleCanvasClick}
+          onMouseMove={handleMouseMove}
+          style={{ display: "block" , maxWidth: "100%" }}
+          className="canvas"
         />
 
-        <Button onClick={reset} variant="outlined" sx={{ mb: 2 }}>
-          Reset
-        </Button>
+        {/* Origin preview box (only visual) */}
+        {cloneArea && (
+          <Box
+            sx={{
+              position: "absolute",
+              border: "2px solid red",
+              width: cloneSize,
+              height: cloneSize,
+              left: cloneArea.x - cloneSize / 2,
+              top: cloneArea.y - cloneSize / 2,
+              pointerEvents: "none",
+            }}
+            className="square origin"
+          />
+        )}
 
+        {/* Tool preview box (follows cursor, visual only) */}
+        <Box
+          sx={{
+            position: "absolute",
+            border: "2px dashed green",
+            width: cloneSize,
+            height: cloneSize,
+            left: cursorPos.x,
+            top: cursorPos.y,
+            pointerEvents: "none",
+          }}
+          className="square tool"
+        />
       </Box>
-      <canvas
-        ref={canvasRef}
-        onClick={handleClick}
-        style={{
-          border: "2px solid #ccc",
-          borderRadius: 6,
-          cursor: "crosshair",
-          maxWidth: "100%",
-          background: "white",
-        }}
-      />
     </Box>
   );
 }
