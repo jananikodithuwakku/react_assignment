@@ -36,8 +36,8 @@ export default function Assignment_27() {
         }
       }
     };
-    window.addEventListener("paste", handlePaste);
-    return () => window.removeEventListener("paste", handlePaste);
+    window.addEventListener("paste", handlePaste); // listens for paste events
+    return () => window.removeEventListener("paste", handlePaste); //cleans up when component unloads
   }, []);
 
   //reset image
