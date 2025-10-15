@@ -33,6 +33,7 @@ function App() {
         <li><a href="#/assignment_25">Canvas Image Crop ( Drag and draw)</a></li>
         <li><a href="#/assignment_26">Image Clone</a></li>
         <li><a href="#/assignment_27">Image Upload Using Three Methods</a></li>
+        <li><a href="#/assignment_28"> Audio Visualizer</a></li>
       </ul>
     </>
   );
