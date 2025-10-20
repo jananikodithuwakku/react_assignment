@@ -78,6 +78,7 @@ export default function Assignment_32() {
   };
 
   return (
+    <div className="body-container">
     <div className="zoom-grid-container" ref={containerRef}>
       {items.map((num, i) => (
         <div
@@ -100,6 +101,7 @@ export default function Assignment_32() {
           <div className="zoom-number">{items[activeItem]}</div>
         </div>
       )}
+    </div>
     </div>
   );
 }

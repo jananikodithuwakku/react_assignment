@@ -152,6 +152,7 @@ export default function Assignment_31() {
           ))}
         </div>
 
+         {/* AnimatePresence handles enter/exit zoom transitions */}
         <AnimatePresence>
           {activeItem && rect && (
             <motion.div
@@ -200,6 +201,7 @@ export default function Assignment_31() {
                 }}
               />
 
+              {/* Title + Close Button */}
               <motion.div
                 style={{
                   padding: "20px",
