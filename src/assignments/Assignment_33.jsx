@@ -43,7 +43,7 @@ export default function Assignment_33() {
   return (
     <div
       style={{
-        width: "95vw",
+        width: "85vw",
         height: "85vh",
         background: "#949191ff",
         position: "relative",
