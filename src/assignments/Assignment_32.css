@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.zoom-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 15px;
+  background: #2b2b2b;
+  padding: 30px;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.zoom-item {
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.zoom-item:hover {
+  transform: scale(1.05);
+}
+
+.zoom-overlay {
+  position: absolute;
+  border-radius: 10px;
+  z-index: 10;  /* keep above all item*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.5s ease-in-out;
+  font-size: 80px;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.zoom-number {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.zoom-overlay:not(.zoom-out) {
+  animation: zoomIn 0.5s ease forwards;
+}
+
+.zoom-out {
+  animation: zoomOut 0.5s ease forwards;
+}
+
+/*  Keyframes for zoom-in animation  */
+@keyframes zoomIn {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Keyframes for zoom-out animation */
+@keyframes zoomOut {
+  from {
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Keyframes for fading number appearance  */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
