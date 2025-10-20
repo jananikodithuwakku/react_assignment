@@ -36,7 +36,7 @@ function App() {
         <li><a href="#/assignment_28"> Audio Visualizer</a></li>
         <li><a href="#/assignment_29"> Pixel Filter</a></li>
         <li><a href="#/assignment_30"> Flip and Match</a></li>
-       
+        <li><a href="#/assignment_31"> Zoom in Images</a></li>
         <li><a href="#/assignment_32"> Zoom in Numbers</a></li>
       </ul>
     </>
