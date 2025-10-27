@@ -33,13 +33,13 @@ function App() {
         <li><a href="#/assignment_25">Canvas Image Crop ( Drag and draw)</a></li>
         <li><a href="#/assignment_26">Image Clone</a></li>
         <li><a href="#/assignment_27">Image Upload Using Three Methods</a></li>
-        <li><a href="#/assignment_28"> Audio Visualizer</a></li>
-        <li><a href="#/assignment_29"> Pixel Filter</a></li>
-        <li><a href="#/assignment_30"> Flip and Match</a></li>
-        <li><a href="#/assignment_31"> Zoom in Images</a></li>
-        <li><a href="#/assignment_32"> Zoom in Numbers</a></li>
-        <li><a href="#/assignment_33"> Draggable Box</a></li>
-        <li><a href="#/assignment_34"> Slide show</a></li>
+        <li><a href="#/assignment_28">Audio Visualizer</a></li>
+        <li><a href="#/assignment_29">Pixel Filter</a></li>
+        <li><a href="#/assignment_30">Flip and Match</a></li>
+        <li><a href="#/assignment_31">Zoom in Images</a></li>
+        <li><a href="#/assignment_32">Zoom in Numbers</a></li>
+        <li><a href="#/assignment_33">Draggable Box</a></li>
+        <li><a href="#/assignment_34">Slide show</a></li>
       </ul>
     </>
   );

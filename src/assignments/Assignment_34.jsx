@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
 import "./Assignment_34.css";
-import { Plus, Trash2, Play, Square } from "lucide-react";
+import { Plus, Trash2, Play, Square } from "lucide-react"; // icons for add, delete, play, and stop
 
 export default function Assignment_34() {
   const [slides, setSlides] = useState([
-    { id: 1, text: "WELCOME TO SLIDE 1", bg: "#0b307eff", animation: "" },
+    { id: 1, text: "WELCOME TO SLIDE 1", bg: "#0b307eff", animation: "down" },
+    { id: 2, text: "WELCOME TO SLIDE 2", bg: "#7e4c0bff", animation: "blur" },
   ]); // stores array of slide objects
   
   const [current, setCurrent] = useState(0); // current slide index
