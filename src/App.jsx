@@ -40,6 +40,7 @@ function App() {
         <li><a href="#/assignment_32">Zoom in Numbers</a></li>
         <li><a href="#/assignment_33">Draggable Box</a></li>
         <li><a href="#/assignment_34">Slide show</a></li>
+        <li><a href="#/assignment_35">Sliding Puzzle</a></li>
       </ul>
     </>
   );

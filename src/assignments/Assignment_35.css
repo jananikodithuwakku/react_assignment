@@ -1,0 +1,57 @@
+/* Container */
+.puzzle-container {
+  background: #384e83;
+  min-height: 87vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+/* Title */
+.puzzle-container h2 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+/* Puzzle grid */
+.puzzle-grid {
+  position: relative;
+  border: 5px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Puzzle tile */
+.puzzle-tile {
+  position: absolute;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Full image when solved */
+.puzzle-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Restart button */
+.puzzle-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Instructions */
+.puzzle-container p {
+  color: #ccc;
+  margin-top: 10px;
+}
