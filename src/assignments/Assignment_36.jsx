@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./Assignment_36.css";
 
-export default function SnakeMove() {
+export default function Assignment_36() {
   const rows = 10; // grid height
   const cols = 15; // grid width
   const speed = 200; // movement speed (ms)
