@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import "./Assignment_36.css";
+const rows = 10; // grid height
+const cols = 15; // grid width
+const speed = 200; // movement speed (ms)
 
 export default function Assignment_36() {
-  const rows = 10; // grid height
-  const cols = 15; // grid width
-  const speed = 200; // movement speed (ms)
   const [direction, setDirection] = useState({ x: 1, y: 0 }); // moving right initially
   const intervalRef = useRef(null); // to store setInterval reference
   const [snake, setSnake] = useState([
@@ -38,7 +38,7 @@ export default function Assignment_36() {
     };
     window.addEventListener("keydown", handleKeyDown); // listen to key presses
     return () => window.removeEventListener("keydown", handleKeyDown); // cleanup
-  }, []); 
+  }, []);
 
   // Move snake continuously
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Assignment_36() {
         const newHead = {
           x: (prevSnake[0].x + direction.x + cols) % cols, // move and wrap X
           y: (prevSnake[0].y + direction.y + rows) % rows, // move and wrap Y
-        }; 
+        };
 
         const newSnake = [newHead, ...prevSnake.slice(0, -1)]; // move forward (no grow)
         return newSnake; // update new snake

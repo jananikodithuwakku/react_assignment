@@ -40,6 +40,7 @@ import Assignment_33 from "./assignments/Assignment_33.jsx";
 import Assignment_34 from "./assignments/Assignment_34.jsx";
 import Assignment_35 from "./assignments/Assignment_35.jsx";
 import Assignment_36 from "./assignments/Assignment_36.jsx";
+import Assignment_37 from "./assignments/Assignment_37.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -84,6 +85,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/assignment_34" element={<Assignment_34 />} />
         <Route path="/assignment_35" element={<Assignment_35 />} />
         <Route path="/assignment_36" element={<Assignment_36 />} />
+        <Route path="/assignment_37" element={<Assignment_37 />} />
       </Routes>
     </HashRouter>
   </StrictMode>

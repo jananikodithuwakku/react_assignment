@@ -1,0 +1,68 @@
+/* main container for the slider */
+.slider-container {
+  position: relative;
+  width: 700px;
+  height: 450px;
+  margin: 60px auto;
+  overflow: hidden;
+  background: #111;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #000a;
+}
+
+/* wrapper that holds all items */
+.items {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  user-select: none;
+}
+
+/* individual item card */
+.item {
+  width: 180px;
+  height: 230px;
+  background-color: #fff3;
+  color: #fff8;
+  position: absolute;
+  pointer-events: none;
+  transition-property: left, opacity, transform;
+  transition-duration: 0.3s;
+  top: calc(225px - 115px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+/* arrow button styles */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff22;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background: #ffffff55;
+}
+
+.left {
+  left: 15px;
+}
+
+.right {
+  right: 15px;
+}
