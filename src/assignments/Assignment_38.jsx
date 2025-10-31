@@ -9,7 +9,7 @@ export default function Assignment_38() {
 
   // load and parse SRT
   useEffect(() => {
-    fetch("/audio/Ordinary.srt")
+    fetch("./audio/Ordinary.srt")
       .then((res) => res.text()) // read file as text
       .then((text) => {
         console.log("Loaded SRT ");
@@ -86,7 +86,7 @@ export default function Assignment_38() {
 
       <audio
         ref={audioRef}
-        src="/audio/Ordinary.mp3"
+        src="./audio/Ordinary.mp3"
         controls
         onTimeUpdate={handleTimeUpdate}
       />
