@@ -43,6 +43,7 @@ function App() {
         <li><a href="#/assignment_35">Sliding Puzzle</a></li>
         <li><a href="#/assignment_36">Snake Movement</a></li>
         <li><a href="#/assignment_37">Infinite Items Slider</a></li>
+        <li><a href="#/assignment_38">Subtitle Player</a></li>
       </ul>
     </>
   );

@@ -1,0 +1,56 @@
+.player {
+  width: 520px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #0f172a;
+  color: #f9fafb;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* soft shadow */
+  font-family: "Poppins", sans-serif; /* clean font */
+}
+
+audio {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.lyrics-container {
+  height: 320px;
+  overflow-y: auto;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  scrollbar-width: thin;
+  scrollbar-color: #22c5af #1e293b;
+}
+
+/* default line */
+.subtitle-line {
+  padding: 6px;
+  cursor: pointer;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+/* highlighted active line */
+.subtitle-line.active {
+  color: #22c5af;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px #22c5af;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+/* soft glow animation */
+@keyframes pulse {
+  0% {
+    text-shadow: 0 0 8px #22c5af, 0 0 16px #16a3a3;
+  }
+  50% {
+    text-shadow: 0 0 20px #22c5af, 0 0 40px #16a3a3;
+  }
+  100% {
+    text-shadow: 0 0 8px #22c5af, 0 0 16px #16a3a3;
+  }
+}
