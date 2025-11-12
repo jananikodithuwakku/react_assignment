@@ -1,0 +1,84 @@
+.wj-container {
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  background-color: #0b191f;
+}
+
+.wj-grid{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background-color: #0b191f;
+  height: 500px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.wjcell {
+  width: 45px;
+  height: 45px;
+  border: 2px solid rgb(12, 118, 150);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #65a4b8;
+  background-color: rgb(19, 69, 92);
+  user-select: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 22px;
+}
+
+.wjcell.selected {
+  background-color: #82c535;
+  border-color: #457e05;
+}
+
+.wjcell.found {
+  background-color: #032e4b;
+  color: rgb(245, 250, 249);
+  border-color: #1a5268;
+}
+
+.word-list {
+  text-align: center;
+  font-size: 20px;
+  min-width: 100px;
+  color: #284f5f;
+}
+
+.word-item {
+  margin: 5px 0;
+  font-weight: 600;
+}
+
+.found-word {
+  color: rgb(10, 170, 175);
+  text-decoration: line-through;
+}
+
+.shuffle-btn {
+  margin-top: 15px;
+  padding: 8px 14px;
+  background-color: #022547;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.shuffle-btn:hover {
+  background-color: #0d66a1;
+}
