@@ -46,6 +46,7 @@ function App() {
         <li><a href="#/assignment_38">Subtitle Player</a></li>
         <li><a href="#/assignment_39">On-Screen Keyboard</a></li>
         <li><a href="#/assignment_40">Words Jumble</a></li>
+        <li><a href="#/assignment_41">Words Jumble</a></li>
       </ul>
     </>
   );
