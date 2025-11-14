@@ -47,6 +47,7 @@ function App() {
         <li><a href="#/assignment_39">On-Screen Keyboard</a></li>
         <li><a href="#/assignment_40">Words Jumble</a></li>
         <li><a href="#/assignment_41">Knife Hit</a></li>
+        <li><a href="#/assignment_42">Drum Clock</a></li>
       </ul>
     </>
   );
