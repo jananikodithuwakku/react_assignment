@@ -48,6 +48,7 @@ function App() {
         <li><a href="#/assignment_40">Words Jumble</a></li>
         <li><a href="#/assignment_41">Knife Hit</a></li>
         <li><a href="#/assignment_42">Drum Clock</a></li>
+        <li><a href="#/assignment_43">Scroll Animation</a></li>
       </ul>
     </>
   );
