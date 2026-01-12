@@ -50,6 +50,7 @@ function App() {
         <li><a href="#/assignment_42">Drum Clock</a></li>
         <li><a href="#/assignment_43">Scroll Animation</a></li>
         <li><a href="#/assignment_44">Water Sort Puzzle</a></li>
+        <li><a href="#/assignment_45">Hidato Game</a></li>
       </ul>
     </>
   );
