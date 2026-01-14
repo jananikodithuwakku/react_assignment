@@ -1,86 +1,134 @@
 import { useEffect, useState } from "react";
 import levels from "./hidato_level.json";
-
 import "./Assignment_45.css";
 
 export default function Assignment_45() {
   const [levelIndex, setLevelIndex] = useState(0);
   const [placed, setPlaced] = useState({});
-  const [pathIndex, setPathIndex] = useState(0);
+  const [path, setPath] = useState([]);
+  const [currentValue, setCurrentValue] = useState(1);
+  const [currentCell, setCurrentCell] = useState(null);
   const [wrongCell, setWrongCell] = useState(null);
   const [completed, setCompleted] = useState(false);
   const [gameFinished, setGameFinished] = useState(false);
+  const [dragging, setDragging] = useState(false);
+
   const level = levels[levelIndex];
 
   useEffect(() => {
     const init = {};
-    level.fixed.forEach((c) => {
-      init[`${c.x}-${c.y}`] = c.value;
+    let start = null;
+
+    level.fixed.forEach(f => {
+      init[`${f.x}-${f.y}`] = f.value;
+      if (f.value === 1) start = { x: f.x, y: f.y };
     });
 
     setPlaced(init);
+    setPath([]);
+    setCurrentCell(start);
+    setCurrentValue(2);
     setWrongCell(null);
     setCompleted(false);
+    setDragging(false);
+  }, [levelIndex]);
 
-    let start = 0;
-    while (
-      level.fixed.some(
-        (f) =>
-          f.x === level.solution[start]?.x && f.y === level.solution[start]?.y
-      )
-    ) {
-      start++;
+  const isFixed = (x, y) =>
+    level.fixed.some(f => f.x === x && f.y === y);
+
+  const isAdjacent = (a, b) =>
+    Math.abs(a.x - b.x) <= 1 && Math.abs(a.y - b.y) <= 1;
+
+  const isReverseMove = key =>
+    path.length >= 2 && path[path.length - 2] === key;
+
+  const resetPath = () => {
+    const fixedOnly = {};
+    let start = null;
+
+    level.fixed.forEach(f => {
+      fixedOnly[`${f.x}-${f.y}`] = f.value;
+      if (f.value === 1) start = { x: f.x, y: f.y };
+    });
+
+    setPlaced(fixedOnly);
+    setPath([]);
+    setCurrentCell(start);
+    setCurrentValue(2);
+  };
+
+  const triggerWrong = key => {
+    setWrongCell(key);
+    setTimeout(() => {
+      setWrongCell(null);
+      resetPath();
+    }, 300);
+  };
+
+  const handleEnter = (x, y) => {
+    if (!dragging || completed || gameFinished) return;
+    if (!currentCell) return;
+
+    const key = `${x}-${y}`;
+
+    if (isReverseMove(key)) {
+      const lastKey = path[path.length - 1];
+
+      setPlaced(p => {
+        const copy = { ...p };
+        delete copy[lastKey];
+        return copy;
+      });
+
+      setPath(p => p.slice(0, -1));
+      setCurrentCell({ x, y });
+      setCurrentValue(v => v - 1);
+      return;
     }
-    setPathIndex(start);
-  }, [levelIndex, level.fixed, level.solution]);
 
-  const isFixed = (x, y) => level.fixed.some((f) => f.x === x && f.y === y);
+    if (!isAdjacent(currentCell, { x, y })) {
+      triggerWrong(key);
+      return;
+    }
 
-  const handleClick = (x, y) => {
-    if (completed || gameFinished) return;
-    if (isFixed(x, y)) return;
+    const fixedCell = level.fixed.find(f => f.x === x && f.y === y);
 
-    const expected = level.solution[pathIndex];
-    if (!expected) return;
-
-    if (expected.x === x && expected.y === y) {
-      const value = pathIndex + 1;
-
-      setPlaced((p) => ({
-        ...p,
-        [`${x}-${y}`]: value,
-      }));
-
-      let next = pathIndex + 1;
-
-      while (
-        level.fixed.some(
-          (f) =>
-            f.x === level.solution[next]?.x && f.y === level.solution[next]?.y
-        )
-      ) {
-        next++;
+    if (fixedCell) {
+      if (fixedCell.value !== currentValue) {
+        triggerWrong(key);
+        return;
       }
 
-      setPathIndex(next);
-
-      if (next >= level.solution.length) {
-        if (levelIndex === levels.length - 1) {
-          setGameFinished(true); 
-        } else {
-          setCompleted(true);
-        }
+      if (currentValue === level.max) {
+        levelIndex === levels.length - 1
+          ? setGameFinished(true)
+          : setCompleted(true);
+        return;
       }
-    } else {
-      setWrongCell(`${x}-${y}`);
-      setTimeout(() => setWrongCell(null), 250);
+
+      setCurrentCell({ x, y });
+      setCurrentValue(v => v + 1);
+      return;
     }
+
+    if (placed[key]) return;
+
+    setPlaced(p => ({ ...p, [key]: currentValue }));
+    setPath(p => [...p, key]);
+    setCurrentCell({ x, y });
+
+    if (currentValue + 1 === level.max) {
+      levelIndex === levels.length - 1
+        ? setGameFinished(true)
+        : setCompleted(true);
+    }
+
+    setCurrentValue(v => v + 1);
   };
 
   return (
     <div className="hidato-wrapper">
       <h1>Hidato Game</h1>
-
       {!gameFinished && <h3>Level {levelIndex + 1}</h3>}
 
       {!gameFinished && (
@@ -88,8 +136,11 @@ export default function Assignment_45() {
           className="hidato-grid"
           style={{
             gridTemplateColumns: `repeat(${level.width}, 70px)`,
-            gridTemplateRows: `repeat(${level.height}, 70px)`,
+            gridTemplateRows: `repeat(${level.height}, 70px)`
           }}
+          onMouseDown={() => setDragging(true)}
+          onMouseUp={() => setDragging(false)}
+          onMouseLeave={() => setDragging(false)}
         >
           {[...Array(level.height)].map((_, y) =>
             [...Array(level.width)].map((_, x) => {
@@ -105,7 +156,7 @@ export default function Assignment_45() {
                     ${wrongCell === key ? "wrong" : ""}
                     ${value && !fixed ? "filled" : ""}
                   `}
-                  onClick={() => handleClick(x, y)}
+                  onMouseEnter={() => handleEnter(x, y)}
                 >
                   {value && <span>{value}</span>}
                 </div>
@@ -117,13 +168,8 @@ export default function Assignment_45() {
 
       {completed && (
         <div className="completed">
-          Level Completed!
-          <button
-            onClick={() => {
-              setLevelIndex((i) => i + 1);
-              setCompleted(false);
-            }}
-          >
+          <h2>Level Completed!</h2>
+          <button onClick={() => setLevelIndex(i => i + 1)}>
             Next Level
           </button>
         </div>
@@ -131,21 +177,12 @@ export default function Assignment_45() {
 
       {gameFinished && (
         <div className="completed final">
-          <strong>Congratulations!</strong>
-          <p>
-            You completed all <strong>{levels.length}</strong> levels
-          </p>
-          <p className="score">
-            Score:{" "}
-            <strong>
-              {levels.length} / {levels.length}
-            </strong>
-          </p>
+          <h2>Congratulations!</h2>
+          <p>You completed all {levels.length} levels</p>
           <button
             onClick={() => {
               setLevelIndex(0);
               setGameFinished(false);
-              setCompleted(false);
             }}
           >
             Play Again
