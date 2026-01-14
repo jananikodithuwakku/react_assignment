@@ -5,7 +5,7 @@ import "./Assignment_45.css";
 export default function Assignment_45() {
   const [levelIndex, setLevelIndex] = useState(0);
   const [placed, setPlaced] = useState({});
-  const [path, setPath] = useState([]);
+  const [path, setPath] = useState([]); 
   const [currentValue, setCurrentValue] = useState(1);
   const [currentCell, setCurrentCell] = useState(null);
   const [wrongCell, setWrongCell] = useState(null);
@@ -99,13 +99,6 @@ export default function Assignment_45() {
         return;
       }
 
-      if (currentValue === level.max) {
-        levelIndex === levels.length - 1
-          ? setGameFinished(true)
-          : setCompleted(true);
-        return;
-      }
-
       setCurrentCell({ x, y });
       setCurrentValue(v => v + 1);
       return;
@@ -116,14 +109,13 @@ export default function Assignment_45() {
     setPlaced(p => ({ ...p, [key]: currentValue }));
     setPath(p => [...p, key]);
     setCurrentCell({ x, y });
+    setCurrentValue(v => v + 1);
 
-    if (currentValue + 1 === level.max) {
+    if (currentValue === level.max) {
       levelIndex === levels.length - 1
         ? setGameFinished(true)
         : setCompleted(true);
     }
-
-    setCurrentValue(v => v + 1);
   };
 
   return (
@@ -168,7 +160,7 @@ export default function Assignment_45() {
 
       {completed && (
         <div className="completed">
-          <h2>Level Completed!</h2>
+          Level Completed!
           <button onClick={() => setLevelIndex(i => i + 1)}>
             Next Level
           </button>
@@ -177,7 +169,7 @@ export default function Assignment_45() {
 
       {gameFinished && (
         <div className="completed final">
-          <h2>Congratulations!</h2>
+          <strong>Congratulations!</strong>
           <p>You completed all {levels.length} levels</p>
           <button
             onClick={() => {
