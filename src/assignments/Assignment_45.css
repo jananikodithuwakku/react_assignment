@@ -33,6 +33,7 @@
   cursor: pointer;
   perspective: 800px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
 }
 
 .hidato-cell:hover {
