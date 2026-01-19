@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import levels from "./hidato_level.json";
+import levels from "./Assignment_46.json";
 import "./Assignment_45.css";
 
 export default function Assignment_45() {

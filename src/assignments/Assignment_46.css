@@ -52,3 +52,12 @@
     transform-style: preserve-3d;
     user-select: none;
 }
+.fixed_46 {
+  background: linear-gradient(145deg, #b7bfcf, #99999b);
+  cursor: default;
+}
+
+.fixed_46 span {
+  background: linear-gradient(145deg, #f4f4f5, #181818);
+  color: #020617;
+}
