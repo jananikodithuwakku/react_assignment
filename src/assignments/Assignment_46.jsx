@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import levels from "./Assignment_46.json"; 
+import levels from "./Assignment_46.json";
 import "./Assignment_46.css";
 
 export default function Assignment_46() {
@@ -7,6 +7,9 @@ export default function Assignment_46() {
   const [grid, setGrid] = useState([]);
   const [dragging, setDragging] = useState(false);
   const [path, setPath] = useState([]);
+  const [startValue, setStartValue] = useState(0);
+  const [status, setStatus] = useState("playing"); 
+  const [gameFinished, setGameFinished] = useState(false);
   const level = levels[levelIndex];
 
   useEffect(() => {
@@ -22,17 +25,34 @@ export default function Assignment_46() {
     setGrid(emptyGrid);
     setPath([]);
     setDragging(false);
+    setStartValue(0);
+    setStatus("playing");
+    setGameFinished(false);
   }, [level]);
 
+  const fixedMap = {};
+  level.fixed.forEach(f => {
+    fixedMap[`${f.x}-${f.y}`] = f.value;
+  });
+
+  const maxValue = level.width * level.height;
+
   const handleMouseDown = (x, y) => {
-    if (grid[y][x] !== "") return; 
+    if (status !== "playing") return;
+
     setDragging(true);
-    setPath([{ x, y }]);
+
+    if (grid[y][x] !== "") {
+      setStartValue(grid[y][x]);
+      setPath([]);
+    } else {
+      setStartValue(0);
+      setPath([{ x, y }]);
+    }
   };
 
   const handleMouseEnter = (x, y) => {
-    if (!dragging) return;
-    if (grid[y][x] !== "") return;
+    if (!dragging || status !== "playing") return;
 
     const index = path.findIndex(p => p.x === x && p.y === y);
 
@@ -43,43 +63,105 @@ export default function Assignment_46() {
     }
   };
 
+  const validatePath = () => {
+    let value = startValue;
+
+    for (let i = 0; i < path.length; i++) {
+      value++;
+
+      const { x, y } = path[i];
+      const fixedHere = fixedMap[`${x}-${y}`];
+
+      if (fixedHere && fixedHere !== value) {
+        return false;
+      }
+    }
+
+    return value === maxValue;
+  };
+
   const stopDragging = () => {
-    setDragging(false); 
-    setPath([]);
+    if (!dragging) return;
+    setDragging(false);
+
+    const correct = validatePath();
+
+    if (correct) {
+      if (levelIndex === levels.length - 1) {
+        setGameFinished(true);
+      } else {
+        setStatus("success");
+      }
+    } else {
+      setStatus("wrong");
+      setTimeout(() => {
+        setPath([]);
+        setStatus("playing");
+      }, 600);
+    }
   };
 
   const getNumber = (x, y) => {
-    if (grid[y][x] !== "") return grid[y][x]; 
+    if (grid[y][x] !== "") return grid[y][x];
 
     const index = path.findIndex(p => p.x === x && p.y === y);
-    return index !== -1 ? index + 1 : "";
+    if (index === -1) return "";
+
+    return startValue + index + 1;
+  };
+
+  const nextLevel = () => {
+    setLevelIndex(prev => prev + 1);
   };
 
   return (
     <div className="container_46">
-      <div
-        className="grid_46"
-        style={{
-          gridTemplateColumns: `repeat(${level.width}, 1fr)`
-        }}
-        onMouseUp={stopDragging}
-        onMouseLeave={stopDragging}
-      >
-        {grid.map((row, y) =>
-          row.map((_, x) => (
-            <div
-              key={`${x}-${y}`}
-              className={`cell_46 ${
-                grid[y][x] !== "" ? "fixed_46" : ""
-              }`}
-              onMouseDown={() => handleMouseDown(x, y)}
-              onMouseEnter={() => handleMouseEnter(x, y)}
-            >
-              {getNumber(x, y) && <span>{getNumber(x, y)}</span>}
-            </div>
-          ))
-        )}
-      </div>
+      {!gameFinished && (
+        <>
+          <div
+            className={`grid_46 ${status === "wrong" ? "shake" : ""}`}
+            style={{
+              gridTemplateColumns: `repeat(${level.width}, 1fr)`
+            }}
+            onMouseUp={stopDragging}
+            onMouseLeave={stopDragging}
+          >
+            {grid.map((row, y) =>
+              row.map((_, x) => {
+                const inPath = path.some(p => p.x === x && p.y === y);
+
+                return (
+                  <div
+                    key={`${x}-${y}`}
+                    className={`cell_46
+                      ${grid[y][x] !== "" ? "fixed_46" : ""}
+                      ${inPath && status === "success" ? "correct" : ""}
+                      ${inPath && status === "wrong" ? "wrong" : ""}
+                    `}
+                    onMouseDown={() => handleMouseDown(x, y)}
+                    onMouseEnter={() => handleMouseEnter(x, y)}
+                  >
+                    {getNumber(x, y) && <span>{getNumber(x, y)}</span>}
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          {status === "success" && levelIndex < levels.length - 1 && (
+            <button className="next_btn" onClick={nextLevel}>
+              Next Level 
+            </button>
+          )}
+        </>
+      )}
+
+      {gameFinished && (
+        <div className="final_message">
+          Congratulations! <br />
+          You completed all 5 levels!
+        </div>
+      )}
     </div>
   );
 }
