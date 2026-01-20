@@ -38,17 +38,8 @@ export default function Assignment_46() {
   const maxValue = level.width * level.height;
 
   const handleMouseDown = (x, y) => {
-    if (status !== "playing") return;
-
     setDragging(true);
-
-    if (grid[y][x] !== "") {
-      setStartValue(grid[y][x]);
-      setPath([]);
-    } else {
-      setStartValue(0);
-      setPath([{ x, y }]);
-    }
+    setPath([{ x, y }]);
   };
 
   const handleMouseEnter = (x, y) => {
