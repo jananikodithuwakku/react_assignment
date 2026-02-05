@@ -30,7 +30,7 @@ export default function Assignment_47() {
   const handleMove = (e) => {
     if (!dragging) return;
 
-    const rect = e.currentTarget.getBoundingClientRect();
+    const rect = e.currentTarget.getBoundingClientRect(); // SVG position on the screen
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 

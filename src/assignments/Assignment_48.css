@@ -1,0 +1,18 @@
+.cube-container {
+  width: 50%;
+  height: 85vh;
+  background: linear-gradient(135deg, #0f1127, #242043, #2c3464);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.cube-container canvas {
+  cursor: grab;
+  border: none !important;
+}
+
+.cube-container canvas:active {
+  cursor: grabbing;
+}

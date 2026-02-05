@@ -53,6 +53,7 @@ function App() {
         <li><a href="#/assignment_45">Hidato Game</a></li>
         <li><a href="#/assignment_46">Hidato Game-steps</a></li>
         <li><a href="#/assignment_47">Pattern Lock</a></li>
+        <li><a href="#/assignment_48">Cube3D</a></li>
       </ul>
     </>
   );
