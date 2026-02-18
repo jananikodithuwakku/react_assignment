@@ -40,18 +40,18 @@ export default function Assignment_24() {
   };
 
   return (
-    <div className="container">
+    <div className="container24">
       <h2>Drag and Drop Pictures</h2>
       {items.map((item, index) => (
         <div
           key={index}
-          className="box"
+          className="box24"
           draggable
           onDragStart={() => handleDragStart(index)}
           onDragEnter={() => handleDragEnter(index)}
           onDragEnd={handleDrop}
         >
-          <img src={item} alt={`pic-${index}`} className="image" />
+          <img src={item} alt={`pic-${index}`} className="image24" />
         </div>
       ))}
     </div>

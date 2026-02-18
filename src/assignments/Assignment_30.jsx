@@ -55,12 +55,12 @@ export default function Assignment_30() {
   };
 
   return (
-    <div className="game-container">
+    <div className="game-container30">
       <h2> Flip and Match Game</h2>
 
       {/* Category selection */}
       {!category && (
-        <div className="categories">
+        <div className="categories30">
           {Object.keys(puzzles).map((cat) => (
             <button key={cat} onClick={() => setCategory(cat)}>
               {cat}
@@ -73,19 +73,19 @@ export default function Assignment_30() {
       {category && (
         <>
           <h3>Category: {category}</h3>
-          <div className="grid">
+          <div className="grid30">
             {collection.map((symbol, index) => {
               const isFlipped = flipped.includes(index) || matched.includes(index);
               const isMatched = matched.includes(index);
               return (
                 <div
                   key={index}
-                  className={`card ${isFlipped ? "flipped" : ""} ${isMatched ? "matched" : ""}`}
+                  className={`card30 ${isFlipped ? "flipped30" : ""} ${isMatched ? "matched30" : ""}`}
                   onClick={() => handleFlip(index)}
                 >
-                  <div className="inner">
-                    <div className="front">❓</div>
-                    <div className="back">{symbol}</div>
+                  <div className="inner30">
+                    <div className="front30">❓</div>
+                    <div className="back30">{symbol}</div>
                   </div>
                 </div>
               );
@@ -93,13 +93,13 @@ export default function Assignment_30() {
           </div>
 
           {/* Reset button */}
-          <button className="reset-btn" onClick={() => setCategory(null)}>
+          <button className="reset-btn30" onClick={() => setCategory(null)}>
              Choose Another Category
           </button>
 
           {/* Win message */}
           {matched.length === collection.length && (
-            <div className="win-message"> You Matched All!</div>
+            <div className="win-message30"> You Matched All!</div>
           )}
         </>
       )}

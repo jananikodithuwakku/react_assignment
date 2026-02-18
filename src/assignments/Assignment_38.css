@@ -1,4 +1,4 @@
-.player {
+.player38 {
   width: 520px;
   margin: 40px auto;
   padding: 20px;
@@ -15,7 +15,7 @@ audio {
   margin-bottom: 20px;
 }
 
-.lyrics-container {
+.lyrics-container38 {
   height: 320px;
   overflow-y: auto;
   text-align: center;
@@ -26,7 +26,7 @@ audio {
 }
 
 /* default line */
-.subtitle-line {
+.subtitle-line38 {
   padding: 6px;
   cursor: pointer;
   color: #9ca3af;
@@ -34,7 +34,7 @@ audio {
 }
 
 /* highlighted active line */
-.subtitle-line.active {
+.subtitle-line38.active38 {
   color: #22c5af;
   font-weight: bold;
   font-size: 1.2rem;

@@ -81,7 +81,7 @@ export default function Assignment_38() {
   };
 
   return (
-    <div className="player">
+    <div className="player38">
       <h2> Ordinary - Subtitle Player</h2>
 
       <audio
@@ -91,11 +91,11 @@ export default function Assignment_38() {
         onTimeUpdate={handleTimeUpdate}
       />
 
-      <div className="lyrics-container" ref={lyricsRef}>
+      <div className="lyrics-container38" ref={lyricsRef}>
         {subtitles.map((sub, i) => (
           <div
             key={i}
-            className={`subtitle-line ${i === activeIndex ? "active" : ""}`}
+            className={`subtitle-line38 ${i === activeIndex ? "active38" : ""}`}
             onClick={() => handleSubtitleClick(sub.start)}
           >
             {sub.text}

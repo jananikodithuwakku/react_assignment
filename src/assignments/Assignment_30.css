@@ -1,4 +1,4 @@
-.game-container {
+.game-container30 {
   text-align: center;
   margin-top: 10px;
   color: #fff;
@@ -8,7 +8,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-.categories button {
+.categories30 button {
   margin: 10px;
   padding: 10px 20px;
   font-size: 1rem;
@@ -19,7 +19,7 @@
   color: white;
 }
 
-.grid {
+.grid30 {
   display: grid;
   grid-template-columns: repeat(4, 95px); /* 4 equal columns*/
   row-gap: 0px;
@@ -27,7 +27,7 @@
   justify-content: center;
   margin-top: 5px;
 }
-.card {
+.card30 {
   width: 95px;
   height: 75px;
   perspective: 800px; /*3D depth for fipping effect*/
@@ -35,7 +35,7 @@
 }
 
 
-.inner {
+.inner30 {
   position: relative;
   width: 100%;
   height: 100%;
@@ -43,12 +43,12 @@
   transform-style: preserve-3d; /* keep both sides visible in 3D*/
 }
 
-.card.flipped .inner {
+.card30.flipped30 .inner30 {
   transform: rotateY(180deg); /* rotate card to show back side*/
 }
 
-.front,
-.back {
+.front30,
+.back30 {
   position: absolute; 
   width: 100%;
   height: 100%;
@@ -62,16 +62,16 @@
   color: #fff;
 }
 
-.back {
+.back30 {
   transform: rotateY(180deg); /* flip backside*/
 }
 
 
-.card.matched .back {
+.card30.matched30 .back30 {
   background: #1a6f7a; /*change color when matched */
 }
 
-.reset-btn {
+.reset-btn30 {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 1rem;
@@ -82,7 +82,7 @@
   color: white;
 }
 
-.win-message {
+.win-message30 {
   margin-top: 20px;
   font-size: 1.5rem;
   color: #254e27;
